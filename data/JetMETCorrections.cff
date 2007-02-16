@@ -1,0 +1,13 @@
+   
+// dummy corrector needed to set record's IOV
+es_source DummyCorrector = SimpleJetCorrectionService {
+        double scale = 1.
+        string label = 'DummyCorrector' 
+}
+es_prefer DummyCorrector = SimpleJetCorrectionService {}
+
+include "JetMETCorrections/MCJet/data/MCJetCorrections.cff"
+
+include "JetMETCorrections/Type1MET/data/MetType1Corrections.cff"
+
+sequence JetMETCorrections = { MCJetCorrections, MetType1Corrections }
