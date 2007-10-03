@@ -1,0 +1,78 @@
+   es_source MCJetCorrectorIcone5 = MCJetCorrectionService {
+            string tagName = 'CMSSW_152_iterativeCone5'
+            string label = 'MCJetCorrectorIcone5' 
+    }
+
+   es_source MCJetCorrectorIcone7 = MCJetCorrectionService {
+            string tagName = 'CMSSW_152_iterativeCone7'
+            string label = 'MCJetCorrectorIcone7' 
+    }
+
+   es_source MCJetCorrectorMcone5 = MCJetCorrectionService {
+            string tagName = 'CMSSW_152_midPointCone5'
+            string label = 'MCJetCorrectorMcone5' 
+    }
+
+   es_source MCJetCorrectorMcone7 = MCJetCorrectionService {
+            string tagName = 'CMSSW_152_midPointCone7'
+            string label = 'MCJetCorrectorMcone7' 
+    }
+
+   es_source MCJetCorrectorScone5 = MCJetCorrectionService {
+            string tagName = 'CMSSW_152_sisCone5'
+            string label = 'MCJetCorrectorScone5' 
+    }
+
+   es_source MCJetCorrectorScone7 = MCJetCorrectionService {
+            string tagName = 'CMSSW_152_sisCone7'
+            string label = 'MCJetCorrectorScone7' 
+    }
+
+   es_source MCJetCorrectorfastjet6 = MCJetCorrectionService {
+            string tagName = 'CMSSW_152_fastjet6'
+            string label = 'MCJetCorrectorfastjet6'
+    }
+
+	module MCJetCorJetIcone5 = JetCorrectionProducer {
+                InputTag src   = iterativeCone5CaloJets
+                vstring correctors = {"MCJetCorrectorIcone5"}
+                untracked string alias = "MCJetCorJetIcone5"
+        }
+
+        module MCJetCorJetIcone7 = JetCorrectionProducer {
+                InputTag src   = iterativeCone7CaloJets
+                vstring correctors = {"MCJetCorrectorIcone7"}
+                untracked string alias = "MCJetCorJetIcone7"
+        }
+
+	module MCJetCorJetMcone5 = JetCorrectionProducer {
+                InputTag src = midPointCone5CaloJets
+                vstring correctors = {"MCJetCorrectorMcone5"}
+                untracked string alias = "MCJetCorJetMcone5"
+        }
+
+	module MCJetCorJetMcone7 = JetCorrectionProducer {
+                InputTag src = midPointCone7CaloJets
+                vstring correctors = {"MCJetCorrectorMcone7"}
+                untracked string alias = "MCJetCorJetMcone7"
+        }
+
+        module MCJetCorJetfastjet6 = JetCorrectionProducer {
+                InputTag src = fastjet6CaloJets
+                vstring correctors = {"MCJetCorrectorfastjet6"}
+                untracked string alias = "MCJetCorJetfastjet6"
+        }
+ 
+        module MCJetCorJetScone5 = JetCorrectionProducer {
+                InputTag src = sisCone5CaloJets
+                vstring correctors = {"MCJetCorrectorScone5"}
+                untracked string alias = "MCJetCorJetScone5"
+        }
+
+	module MCJetCorJetScone7 = JetCorrectionProducer {
+                InputTag src = sisCone7CaloJets
+                vstring correctors = {"MCJetCorrectorScone7"}
+                untracked string alias = "MCJetCorJetScone7"
+        } 
+
+        sequence MCJetCorrections = {MCJetCorJetIcone5,MCJetCorJetIcone7,MCJetCorJetMcone5,MCJetCorJetMcone7,MCJetCorJetfastjet6,MCJetCorJetScone5, MCJetCorJetScone7}

@@ -1,0 +1,11 @@
+# File: JetCorrectionsCSA06mcone7.cff
+# Author: R. Harris
+# Date: 1/09/07
+#
+# Jet corrections for midpoint cone R=0.7 jets from CSA06.
+# 
+	module corJetMcone7 = MCJet {
+                InputTag src = midPointCone7CaloJets
+                string tagName = 'CSA06_Midpoint_Cone_07'  
+        }
+        sequence JetCorrectionsMcone7 = {  corJetMcone7 }

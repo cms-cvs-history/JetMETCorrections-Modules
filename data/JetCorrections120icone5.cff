@@ -1,0 +1,11 @@
+# File: JetCorrections120icone5.cff
+# Author: R. Harris
+# Date: 1/30/07
+#
+# Jet corrections for iterative cone R=0.5 jets from CMSSW_1_2_0.
+# 
+	module corJetIcone5 = MCJet {
+                InputTag src = iterativeCone5CaloJets
+                string tagName = 'CMSSW_120_Iterative_Cone_05'  
+        }
+        sequence JetCorrectionsIcone5 = {  corJetIcone5 }
