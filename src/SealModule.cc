@@ -22,10 +22,3 @@ DEFINE_JET_CORRECTION_SERVICE (MCJetCorrector, MCJetCorrectionService);
 #include "JetMETCorrections/MCJet/interface/L5FlavorCorrector.h"
 DEFINE_JET_CORRECTION_SERVICE (L5FlavorCorrector, L5FlavorCorrectionService);
 #include "JetMETCorrections/GammaJet/interface/GammaJetCorrector.h"
-DEFINE_JET_CORRECTION_SERVICE (GammaJetCorrector, GammaJetCorrectionService);
-#include "JetMETCorrections/JetParton/interface/JetPartonCorrector.h"
-DEFINE_JET_CORRECTION_SERVICE (JetPartonCorrector, JetPartonCorrectionService);
-#include "JetMETCorrections/JetPlusTrack/interface/JetPlusTrackCorrector.h"
-DEFINE_JET_CORRECTION_SERVICE (JetPlusTrackCorrector, JetPlusTrackCorrectionService);
-#include "JetMETCorrections/TauJet/interface/TauJetCorrector.h"
-DEFINE_JET_CORRECTION_SERVICE (TauJetCorrector, TauJetCorrectionService);
