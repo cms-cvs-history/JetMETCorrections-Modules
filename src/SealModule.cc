@@ -22,7 +22,7 @@ DEFINE_JET_CORRECTION_SERVICE (SimpleJetCorrector, SimpleJetCorrectionService);
 #include "JetMETCorrections/MCJet/interface/MCJetCorrector.h"
 DEFINE_JET_CORRECTION_SERVICE (MCJetCorrector, MCJetCorrectionService);
 #include "JetMETCorrections/MCJet/interface/MCJetCorrector3D.h"
-DEFINE_JET_CORRECTION_SERVICE (MCJetCorrector, MCJetCorrectionService3D);
+DEFINE_JET_CORRECTION_SERVICE (MCJetCorrector3D, MCJetCorrectionService3D);
 #include "JetMETCorrections/MCJet/interface/ZSPJetCorrector.h"
 DEFINE_JET_CORRECTION_SERVICE (ZSPJetCorrector, ZSPJetCorrectionService);
 #include "JetMETCorrections/MCJet/interface/L2RelativeCorrector.h"
