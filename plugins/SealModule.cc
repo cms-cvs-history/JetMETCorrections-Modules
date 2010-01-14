@@ -53,4 +53,6 @@ DEFINE_JET_CORRECTION_SERVICE (L5FlavorCorrector, L5FlavorCorrectionService);
 DEFINE_JET_CORRECTION_SERVICE (L7PartonCorrector, L7PartonCorrectionService);
 #include "JetMETCorrections/Algorithms/interface/JetPlusTrackCorrector.h"
 DEFINE_JET_CORRECTION_SERVICE (JetPlusTrackCorrector, JetPlusTrackCorrectionService);
+#include "JetMETCorrections/Algorithms/interface/JetPlusTrackCorrectorBG.h"
+DEFINE_JET_CORRECTION_SERVICE (JetPlusTrackCorrectorBG, JetPlusTrackCorrectionServiceAA);
 
