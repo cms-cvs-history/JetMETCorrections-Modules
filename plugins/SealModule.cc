@@ -1,6 +1,5 @@
 #include "FWCore/Framework/interface/MakerMacros.h"
 #include "FWCore/Framework/interface/SourceFactory.h"
-DEFINE_SEAL_MODULE();
 
 #include "CondCore/PluginSystem/interface/registration_macros.h"
 #include "FWCore/PluginManager/interface/ModuleDef.h"
@@ -16,17 +15,17 @@ using namespace reco;
 
 #include "DataFormats/JetReco/interface/CaloJet.h"
 typedef JetCorrectionProducer<CaloJet> CaloJetCorrectionProducer;
-DEFINE_ANOTHER_FWK_MODULE(CaloJetCorrectionProducer);
+DEFINE_FWK_MODULE(CaloJetCorrectionProducer);
 
 #include "DataFormats/JetReco/interface/PFJet.h"
 typedef JetCorrectionProducer<PFJet> PFJetCorrectionProducer;
-DEFINE_ANOTHER_FWK_MODULE(PFJetCorrectionProducer);
+DEFINE_FWK_MODULE(PFJetCorrectionProducer);
 
 #include "JetMETCorrections/Modules/interface/PlotJetCorrections.h"
-DEFINE_ANOTHER_FWK_MODULE(PlotJetCorrections);
+DEFINE_FWK_MODULE(PlotJetCorrections);
 
 #include "JetMETCorrections/Modules/interface/JetCorrectionServiceChain.h"
-DEFINE_ANOTHER_FWK_EVENTSETUP_SOURCE(JetCorrectionServiceChain);
+DEFINE_FWK_EVENTSETUP_SOURCE(JetCorrectionServiceChain);
 
 #include "JetMETCorrections/Objects/interface/SimpleJetCorrector.h"
 DEFINE_JET_CORRECTION_SERVICE (SimpleJetCorrector, SimpleJetCorrectionService);
