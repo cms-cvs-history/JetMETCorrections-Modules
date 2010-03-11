@@ -13,7 +13,7 @@
 //
 // Original Author:  Benedikt Hegner 
 //         Created:  Tue Mar 09 01:32:51 CET 2010
-// $Id: JetCorrectorDBReader.cc,v 1.3 2009/12/14 22:23:35 wmtan Exp $
+// $Id: JetCorrectorDBReader.cc,v 1.1 2010/03/10 17:19:51 hegner Exp $
 //
 //
 
@@ -31,7 +31,7 @@
 #include "FWCore/ParameterSet/interface/ParameterSet.h"
 #include "FWCore/Framework/interface/ESHandle.h"
 #include "CondFormats/JetMETObjects/interface/JetCorrectorParameters.h"
-#include "CondFormats/DataRecord/interface/JetCorrectorParametersRecord.h"
+#include "JetMETCorrections/Objects/interface/JetCorrectionsRecord.h"
 #include "CondFormats/JetMETObjects/interface/SimpleJetCorrector.h"
 //
 // class decleration
@@ -89,7 +89,7 @@ JetCorrectorDBReader::analyze(const edm::Event& iEvent, const edm::EventSetup& i
 {
   edm::ESHandle<JetCorrectorParameters> params;
   std::cout <<" Studying correction parameters with label "<< label <<std::endl;
-  iSetup.get<JetCorrectorParametersRecord>().get(label,params);
+  iSetup.get<JetCorrectionsRecord>().get(label,params);
   // print the parameters to screen
   params->printScreen();
   // create a SimpleJetCorrector

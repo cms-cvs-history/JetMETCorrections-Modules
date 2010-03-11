@@ -22,6 +22,20 @@ process.PoolDBESSource = cms.ESSource("PoolDBESSource",
 
 )
 
+ak5CaloL2Relative = cms.ESProducer('LXXXCorrectionService',
+            level     = cms.string('L2Relative'),
+            algorithm = cms.string('AK5Calo'),
+            section   = cms.string('')                       
+            )
+
 process.demo2 = cms.EDAnalyzer('JetCorrectorDBReader', label = cms.untracked.string('L2Relative_AK5Calo_'))
 
-process.p = cms.Path(process.demo2)
+process.get = cms.EDAnalyzer("EventSetupRecordDataGetter",
+                             toGet = cms.VPSet(cms.PSet(
+                                 record = cms.string('JetCorrectionsRecord'),
+                                 data = cms.vstring('ak5CaloL2Relative')
+                             )),
+                                 verbose = cms.untracked.bool(True)
+                             )
+
+process.p = cms.Path(process.demo2 * process.get)
