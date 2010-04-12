@@ -17,6 +17,7 @@ DEFINE_SEAL_MODULE();
 #include "JetMETCorrections/Algorithms/interface/JetPlusTrackCorrector.h"
 #include "DataFormats/JetReco/interface/CaloJet.h"
 #include "DataFormats/JetReco/interface/PFJet.h"
+#include "DataFormats/JetReco/interface/TrackJet.h"
 #include "DataFormats/JetReco/interface/GenJet.h"
 
 REGISTER_PLUGIN (JetCorrectionsRecord, JetCorrector);
@@ -29,6 +30,9 @@ DEFINE_ANOTHER_FWK_MODULE(CaloJetCorrectionProducer);
 
 typedef JetCorrectionProducer<PFJet> PFJetCorrectionProducer;
 DEFINE_ANOTHER_FWK_MODULE(PFJetCorrectionProducer);
+
+typedef JetCorrectionProducer<TrackJet> TrackJetCorrectionProducer;
+DEFINE_ANOTHER_FWK_MODULE(TrackJetCorrectionProducer);
 
 typedef JetCorrectionProducer<GenJet> GenJetCorrectionProducer;
 DEFINE_ANOTHER_FWK_MODULE(GenJetCorrectionProducer);
