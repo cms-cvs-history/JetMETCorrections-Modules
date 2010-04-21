@@ -6,7 +6,7 @@ process.TFileService=cms.Service("TFileService",fileName=cms.string('JECplots.ro
 process.load('JetMETCorrections.Configuration.DefaultJEC_cff')
 
 process.maxEvents = cms.untracked.PSet(
-        input = cms.untracked.int32(1)
+        input = cms.untracked.int32(100)
         )
 
 process.source = cms.Source("EmptySource")
@@ -26,7 +26,8 @@ process.ak5CaloL2L3Histos = cms.EDAnalyzer(
 )
 
 process.ak5PFL2L3Histos    = process.ak5CaloL2L3Histos.clone(JetCorrectionService = 'ak5PFL2L3', Debug = False)
-process.ak5JPTL2L3Histos   = process.ak5CaloL2L3Histos.clone(JetCorrectionService = 'ak5JPTL2L3', Debug = False)
-process.ak5TrackL2L3Histos = process.ak5CaloL2L3Histos.clone(JetCorrectionService = 'ak5TrackL2L3', Debug = False)
+#process.ak5JPTL2L3Histos   = process.ak5CaloL2L3Histos.clone(JetCorrectionService = 'ak5JPTL2L3', Debug = False)
+#process.ak5TrackL2L3Histos = process.ak5CaloL2L3Histos.clone(JetCorrectionService = 'ak5TrackL2L3', Debug = False)
 
-process.p = cms.Path(process.ak5CaloL2L3Histos * process.ak5PFL2L3Histos * process.ak5JPTL2L3Histos * process.ak5TrackL2L3Histos)
+#process.p = cms.Path(process.ak5CaloL2L3Histos * process.ak5PFL2L3Histos * process.ak5JPTL2L3Histos * process.ak5TrackL2L3Histos)
+process.p = cms.Path(process.ak5CaloL2L3Histos * process.ak5PFL2L3Histos )
