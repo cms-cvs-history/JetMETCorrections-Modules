@@ -22,7 +22,7 @@ file.write('   toPut = cms.VPSet( \n')
 for ll in LEVEL_LIST: #loop for default corrections
   for aa in ALGO_LIST: #loop for jet algorithms
     for tt in TYPE_LIST: #loop for jet types
-      if ((tt=='Calo') or (tt=='PF') or ((tt=='JPT') and ((aa=='IC5') or (aa=='AK5'))) or ((tt=='TRK') and (aa=='AK5'))):
+      if ((tt=='Calo') or (tt=='PF') or ((tt=='JPT') and (aa=='AK5')) or ((tt=='TRK') and (aa=='AK5'))):
         ss = ll+'_'+aa+tt
         print ss 
         file.write('      cms.PSet( \n')
@@ -64,7 +64,7 @@ MODULE_LIST = []
 for ll in LEVEL_LIST: #loop for default corrections
   for aa in ALGO_LIST: #loop for jet algorithms
     for tt in TYPE_LIST: #loop for jet types
-      if ((tt=='Calo') or (tt=='PF') or ((tt=='JPT') and ((aa=='IC5') or (aa=='AK5'))) or ((tt=='TRK') and (aa=='AK5'))):
+      if ((tt=='Calo') or (tt=='PF') or ((tt=='JPT') and (aa=='AK5')) or ((tt=='TRK') and (aa=='AK5'))):
         ss = 'dbWriter'+ll+aa+tt
         MODULE_LIST.append(ss) 
         file.write('process.'+ss+' = cms.EDAnalyzer(\'JetCorrectorDBWriter\', \n')
