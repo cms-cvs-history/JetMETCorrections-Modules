@@ -4,7 +4,7 @@
 //
 // Original Author:  Fedor Ratnikov
 //         Created:  Dec. 28, 2006
-// $Id: JetCorrectionService.h,v 1.6 2010/03/15 20:24:23 kkousour Exp $
+// $Id: JetCorrectionService.h,v 1.7 2010/03/16 22:22:17 hegner Exp $
 //
 //
 
@@ -58,15 +58,15 @@ class JetCorrectionService : public edm::ESProducer,
         mSection          = fConfig.getParameter<std::string>("section");
         mUseCondDB        = fConfig.getUntrackedParameter<bool>("useCondDB",false);
         mDebug            = fConfig.getUntrackedParameter<bool>("debug",false);
-        mPayloadName      = mLevel;
+	mPayloadName = mAlgo;
         
-        if (!mAlgo.empty())
-          mPayloadName += "_"+mAlgo;
-        if (!mSection.empty())
-          mPayloadName += "_"+mSection; 
+        /* if (!mAlgo.empty()) */
+        /*   mPayloadName += "_"+mAlgo; */
+        /* if (!mSection.empty()) */
+        /*   mPayloadName += "_"+mSection;  */
         setWhatProduced(this, label);
         findingRecord <JetCorrectionsRecord> ();
-        
+
       }
     //------------- destruction ----------------------------------------
     ~JetCorrectionService () {}
@@ -75,16 +75,15 @@ class JetCorrectionService : public edm::ESProducer,
       {
         if (mUseCondDB)
           {
-            edm::ESHandle<JetCorrectorParameters> JetCorPar;
-            iRecord.get(mPayloadName,JetCorPar); 
-            boost::shared_ptr<JetCorrector> mCorrector(new Corrector(*JetCorPar,mParameterSet));
+            edm::ESHandle<JetCorrectorParametersCollection> JetCorParColl;
+            iRecord.get(mPayloadName,JetCorParColl); 
+	    JetCorrectorParameters const & JetCorPar = (*JetCorParColl)[ mLevel ];
+            boost::shared_ptr<JetCorrector> mCorrector(new Corrector(JetCorPar,mParameterSet));
             return mCorrector;
           }
         else
           {
             std::string fileName("CondFormats/JetMETObjects/data/");
-            if (!mEra.empty())
-              fileName += mEra;
             if (!mLevel.empty())
               fileName += "_"+mLevel;
             if (!mAlgo.empty())

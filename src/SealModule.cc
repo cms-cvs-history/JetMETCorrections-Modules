@@ -17,7 +17,7 @@
 #include "DataFormats/JetReco/interface/GenJet.h"
 #include "CondFormats/JetMETObjects/interface/JetCorrectorParameters.h"
 
-REGISTER_PLUGIN(JetCorrectionsRecord,JetCorrectorParameters);
+REGISTER_PLUGIN(JetCorrectionsRecord,JetCorrectorParametersCollection);
 using namespace cms;
 using namespace reco;
 

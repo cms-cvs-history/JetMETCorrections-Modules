@@ -16,15 +16,28 @@ process.PoolDBESSource = cms.ESSource("PoolDBESSource",
         toGet = cms.VPSet(
           cms.PSet(
             record = cms.string('JetCorrectionsRecord'),
-            tag    = cms.string('L2Relative_AK5Calo'),
-            label  = cms.untracked.string('L2Relative_AK5Calo')
-          )
-        )
+            tag    = cms.string('AK5Calo'),
+            label  = cms.untracked.string('AK5Calo')
+          ),
+      cms.PSet(
+            record = cms.string('JetCorrectionsRecord'),
+            tag    = cms.string('AK5PF'),
+            label  = cms.untracked.string('AK5PF')
+          )                                          
+                                          ),
+      connect = cms.string('sqlite_file:JEC_Spring10.db')
+#      connect=cms.string('frontier://FrontierPrep/CMS_COND_PHYSICSTOOLS')
 )
 
 process.demo2 = cms.EDAnalyzer('JetCorrectorDBReader', 
-        label          = cms.untracked.string('L2Relative_AK5Calo'),
+        label          = cms.untracked.string('AK5Calo'),
         createTextFile = cms.untracked.bool(True)
 )
 
-process.p = cms.Path(process.demo2)
+
+process.demo3 = cms.EDAnalyzer('JetCorrectorDBReader', 
+        label          = cms.untracked.string('AK5PF'),
+        createTextFile = cms.untracked.bool(True)
+)
+
+process.p = cms.Path(process.demo2 * process.demo3)
