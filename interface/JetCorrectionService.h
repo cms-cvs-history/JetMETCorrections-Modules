@@ -4,7 +4,7 @@
 //
 // Original Author:  Fedor Ratnikov
 //         Created:  Dec. 28, 2006
-// $Id: JetCorrectionService.h,v 1.7 2010/03/16 22:22:17 hegner Exp $
+// $Id: JetCorrectionService.h,v 1.7.2.1 2010/06/29 19:18:39 srappocc Exp $
 //
 //
 
@@ -84,6 +84,8 @@ class JetCorrectionService : public edm::ESProducer,
         else
           {
             std::string fileName("CondFormats/JetMETObjects/data/");
+            if (!mEra.empty())
+              fileName += mEra;
             if (!mLevel.empty())
               fileName += "_"+mLevel;
             if (!mAlgo.empty())
