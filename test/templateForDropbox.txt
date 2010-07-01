@@ -1,0 +1,7 @@
+destDB oracle://cms_orcoff_prep/CMS_COND_PHYSICSTOOLS
+tag TAGNAME
+inputtag PRODNAME
+since
+Timetype runnumber
+IOVCheck offline
+usertext
