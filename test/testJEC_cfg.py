@@ -2,8 +2,17 @@ import FWCore.ParameterSet.Config as cms
 
 process = cms.Process("myprocess")
 
+
+process.load('Configuration.StandardSequences.Services_cff')
+process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
+process.GlobalTag.globaltag = 'START38_V6::All'
+process.GlobalTag.connect = 'sqlite_file:START38_V6.db'
 process.load('JetMETCorrections.Configuration.DefaultJEC_cff')
-process.CondDBCommon.connect = 'sqlite_file:JEC_Summer09_7TeV_ReReco332.db'
+from JetMETCorrections.Configuration.JetCorrectionProducersAllAlgos_cff import *
+
+
+
+
 
 process.maxEvents = cms.untracked.PSet(
         input = cms.untracked.int32(100)
@@ -12,7 +21,7 @@ process.maxEvents = cms.untracked.PSet(
 #process.source = cms.Source("EmptySource")
 #############   Define the source file ###############
 process.source = cms.Source("PoolSource",
-    fileNames = cms.untracked.vstring('file:///data/kkousour/7EF83E04-22EE-DE11-8FA1-00261894396A.root')
+    fileNames = cms.untracked.vstring('/store/relval/CMSSW_3_8_0_pre7/RelValTTbar/GEN-SIM-RECO/START38_V4-v1/0002/DC19EA07-4286-DF11-BD2B-0030487CD16E.root')
 )
 
 process.TFileService=cms.Service("TFileService",fileName=cms.string('histos.root'))
