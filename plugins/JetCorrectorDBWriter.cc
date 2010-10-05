@@ -24,18 +24,18 @@ class  JetCorrectorDBWriter : public edm::EDAnalyzer
   ~JetCorrectorDBWriter() {}
 
  private:
+  std::string era;
+  std::string algo;
   std::string inputTxtFile;
-  std::string label;
-  //flavour or parton option
-  std::string option;
+  std::string payloadLabel;
 };
 
 // Constructor
 JetCorrectorDBWriter::JetCorrectorDBWriter(const edm::ParameterSet& pSet)
 {
-  inputTxtFile = pSet.getUntrackedParameter<std::string>("inputTxtFile");
-  label        = pSet.getUntrackedParameter<std::string>("label");
-  option       = pSet.getUntrackedParameter<std::string>("option");
+  era    = pSet.getUntrackedParameter<std::string>("era");
+  algo   = pSet.getUntrackedParameter<std::string>("algo");
+  payloadLabel = "JEC_"+era+"_"+algo;
 }
 
 // Begin Job
@@ -44,22 +44,23 @@ void JetCorrectorDBWriter::beginJob()
   std::string path("CondFormats/JetMETObjects/data/");
 
   JetCorrectorParametersCollection * payload = new JetCorrectorParametersCollection();
-  std::cout << "Starting to import payload " << label << " with option " << option << " from text files." << std::endl;
+  std::cout << "Starting to import payload " << payloadLabel << " from text files." << std::endl;
   for ( int i = 0; i < JetCorrectorParametersCollection::N_LEVELS; ++i ) {
     
     std::string append("_");
     std::string ilev = JetCorrectorParametersCollection::findLabel( static_cast<JetCorrectorParametersCollection::Level_t>(i) );
     append += ilev;
     append += "_";
-    append += label;
+    append += algo;
     append += ".txt"; 
-    std::ifstream input( (path+inputTxtFile+append).c_str() );
+    inputTxtFile = path+era+append;
+    std::ifstream input( ("../../../"+inputTxtFile).c_str() );
     if ( input.good() ) {
-      edm::FileInPath fip(path+inputTxtFile+append);
-      std::cout << "Opened file " << path+inputTxtFile+append << std::endl;
+      edm::FileInPath fip(inputTxtFile);
+      std::cout << "Opened file " << inputTxtFile << std::endl;
       // create the parameter object from file 
       std::vector<std::string> sections;
-      JetCorrectorParametersCollection::getSections( path+inputTxtFile+append, sections );
+      JetCorrectorParametersCollection::getSections("../../../"+inputTxtFile, sections );
       if ( sections.size() == 0 ) {
 	payload->push_back( i, JetCorrectorParameters(fip.fullPath(),"") );
       }
@@ -71,17 +72,12 @@ void JetCorrectorDBWriter::beginJob()
       }
       std::cout << "Added as record " << i << std::endl;
     } else {
-      std::cout << "Did not find JEC file " << path + inputTxtFile + append << std::endl;
+      std::cout << "Did not find JEC file " << inputTxtFile << std::endl;
     }
     
   }
   
   std::cout << "Opening PoolDBOutputService" << std::endl;
-
-  // create a name for the payload 
-  std::string payloadLabel(label);
-  if (!option.empty())
-    payloadLabel += "_"+option;
 
   // now write it into the DB
   edm::Service<cond::service::PoolDBOutputService> s;
@@ -98,3 +94,4 @@ void JetCorrectorDBWriter::beginJob()
 
 
 DEFINE_FWK_MODULE(JetCorrectorDBWriter);
+
