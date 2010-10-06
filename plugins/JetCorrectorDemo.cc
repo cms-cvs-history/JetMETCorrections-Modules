@@ -42,10 +42,11 @@ private:
   double mEtaMin,mEtaMax,mPtMin,mPtMax;
   std::vector<double> mVEta,mVPt;
   double vjec_eta[100][1000],vjec_pt[100][1000],vpt[100][1000],vptcor[100][1000],veta[100][1000];
-  double vjecUnc_eta[100][1000],vjecUnc_pt[100][1000],vex_eta[100][1000],vex_pt[100][1000];
+  double vjecUnc_eta[100][1000],vUnc_eta[100][1000],vjecUnc_pt[100][1000],vUnc_pt[100][1000],vex_eta[100][1000],vex_pt[100][1000];
   edm::Service<TFileService> fs;
   TH2F *mJECvsEta, *mJECvsPt;
   TGraphErrors *mVGraphEta[100],*mVGraphPt[100],*mVGraphCorPt[100];
+  TGraph *mUncEta[100], *mUncCorPt[100];
   TRandom *mRandom;
 };
 //
@@ -129,14 +130,14 @@ void JetCorrectorDemo::analyze(const edm::Event& iEvent, const edm::EventSetup& 
               jecUnc->setJetPt(rawPt*jec);// the uncertainty is a function of the corrected pt
               unc = jecUnc->getUncertainty(true);
             }
-          vjecUnc_eta[ieta][i] = unc;
+          vjecUnc_eta[ieta][i] = unc*jec;
+          vUnc_eta[ieta][i] = unc;
           vex_eta[ieta][i] = 0.0;
           if (mDebug)
             std::cout<<rawPt<<" "<<eta<<" "<<jec<<" "<<rawPt*jec<<" "<<unc<<std::endl;
         }
     }
   //--------- Eta Graphs -------------------
-  //--------- Here
   for(unsigned ipt=0;ipt<mVPt.size();ipt++)
     {
       for(int i=0;i<mNGraphPoints;i++)
@@ -148,14 +149,15 @@ void JetCorrectorDemo::analyze(const edm::Event& iEvent, const edm::EventSetup& 
           double e = 1.0;
           int nLoop(0);
           rawPt = corPt; 
-          while(e > 0.0001 || nLoop < 10) 
+          while(e > 0.0001 && nLoop < 10) 
              {
                P4.SetPtEtaPhiE(rawPt,eta,0,0); 
                LorentzVector rawP4(P4.Px(),P4.Py(),P4.Pz(),P4.E()); 
-               jec = corrector->correction(rawP4);
+               jec = corrector->correction(rawP4); 
                double tmp = rawPt * jec;
                e = fabs(tmp-corPt)/corPt;
-               rawPt = corPt/jec;
+               if (jec > 0)
+                 rawPt = corPt/jec;
                nLoop++;
              } 
           //--------- calculate the jec for the rawPt --------
@@ -170,7 +172,8 @@ void JetCorrectorDemo::analyze(const edm::Event& iEvent, const edm::EventSetup& 
               jecUnc->setJetPt(corPt);// the uncertainty is a function of the corrected pt
               unc = jecUnc->getUncertainty(true);
             }
-          vjecUnc_pt[ipt][i] = unc;
+          vjecUnc_pt[ipt][i] = unc*jec;
+          vUnc_pt[ipt][i] = unc;
           vex_pt[ipt][i] = 0.0;
           if (mDebug)
             std::cout<<rawPt<<" "<<eta<<" "<<jec<<" "<<rawPt*jec<<" "<<unc<<std::endl;
@@ -201,6 +204,9 @@ void JetCorrectorDemo::endJob()
       mVGraphEta[ipt] = fs->make<TGraphErrors>(mNGraphPoints,veta[ipt],vjec_pt[ipt],vex_pt[ipt],vjecUnc_pt[ipt]);
       sprintf(name,"JEC_vs_Eta_CorPt%1.1f",mVPt[ipt]);
       mVGraphEta[ipt]->SetName(name);
+      mUncEta[ipt] = fs->make<TGraph>(mNGraphPoints,veta[ipt],vUnc_pt[ipt]);
+      sprintf(name,"UNC_vs_Eta_CorPt%1.1f",mVPt[ipt]);
+      mUncEta[ipt]->SetName(name);
     }
   for(unsigned ieta=0;ieta<mVEta.size();ieta++)
     {
@@ -210,6 +216,9 @@ void JetCorrectorDemo::endJob()
       mVGraphCorPt[ieta] = fs->make<TGraphErrors>(mNGraphPoints,vptcor[ieta],vjec_eta[ieta],vex_eta[ieta],vjecUnc_eta[ieta]);
       sprintf(name,"JEC_vs_CorPt_eta%1.1f",mVEta[ieta]);
       mVGraphCorPt[ieta]->SetName(name);
+      mUncCorPt[ieta] = fs->make<TGraph>(mNGraphPoints,vptcor[ieta],vUnc_eta[ieta]);
+      sprintf(name,"UNC_vs_CorPt_eta%1.1f",mVEta[ieta]);
+      mUncCorPt[ieta]->SetName(name);
     }
 }
 //---------------------------------------------------------------------------
