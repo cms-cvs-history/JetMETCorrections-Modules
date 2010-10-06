@@ -8,11 +8,6 @@ process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 process.GlobalTag.globaltag = 'START38_V6::All'
 process.GlobalTag.connect = 'sqlite_file:START38_V6.db'
 process.load('JetMETCorrections.Configuration.DefaultJEC_cff')
-from JetMETCorrections.Configuration.JetCorrectionProducersAllAlgos_cff import *
-
-
-
-
 
 process.maxEvents = cms.untracked.PSet(
         input = cms.untracked.int32(100)
