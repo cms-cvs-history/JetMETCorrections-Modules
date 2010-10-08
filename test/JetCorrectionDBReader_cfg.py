@@ -15,14 +15,14 @@ process.maxEvents = cms.untracked.PSet(
 process.source = cms.Source("EmptySource")
 
 process.demo2 = cms.EDAnalyzer('JetCorrectorDBReader', 
-        payloadName    = cms.untracked.string('JEC_Spring10_AK5Calo'),
+        payloadName    = cms.untracked.string('JetCorrectorParametersCollection_Spring10_AK5Calo'),
         printScreen    = cms.untracked.bool(False),
         createTextFile = cms.untracked.bool(False)
 )
 
 
 process.demo3 = cms.EDAnalyzer('JetCorrectorDBReader', 
-        payloadName    = cms.untracked.string('JEC_Spring10_AK5JPT'),
+        payloadName    = cms.untracked.string('JetCorrectorParametersCollection_Spring10_AK5JPT'),
         printScreen    = cms.untracked.bool(False),
         createTextFile = cms.untracked.bool(False)
 )

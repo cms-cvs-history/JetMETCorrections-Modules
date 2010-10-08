@@ -35,7 +35,7 @@ JetCorrectorDBWriter::JetCorrectorDBWriter(const edm::ParameterSet& pSet)
 {
   era    = pSet.getUntrackedParameter<std::string>("era");
   algo   = pSet.getUntrackedParameter<std::string>("algo");
-  payloadLabel = "JEC_"+era+"_"+algo;
+  payloadLabel = "JetCorrectorParametersCollection_"+era+"_"+algo;
 }
 
 // Begin Job

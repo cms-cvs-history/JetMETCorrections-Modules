@@ -4,7 +4,7 @@
 //
 // Original Author:  Fedor Ratnikov
 //         Created:  Dec. 28, 2006
-// $Id: JetCorrectionService.h,v 1.7.2.2 2010/06/30 15:22:37 srappocc Exp $
+// $Id: JetCorrectionService.h,v 1.7.2.3 2010/10/05 16:04:29 kkousour Exp $
 //
 //
 
@@ -58,7 +58,7 @@ class JetCorrectionService : public edm::ESProducer,
         mSection          = fConfig.getParameter<std::string>("section");
         mUseCondDB        = fConfig.getUntrackedParameter<bool>("useCondDB",false);
         mDebug            = fConfig.getUntrackedParameter<bool>("debug",false);
-	mPayloadName = "JEC_"+mEra+"_"+mAlgo;
+	mPayloadName = "JetCorrectorParametersCollection_"+mEra+"_"+mAlgo;
         
         /* if (!mAlgo.empty()) */
         /*   mPayloadName += "_"+mAlgo; */
