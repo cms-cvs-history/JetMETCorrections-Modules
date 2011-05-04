@@ -17,25 +17,22 @@ process.jec = cms.ESSource("PoolDBESSource",CondDBSetup,
                            connect = cms.string("frontier://FrontierPrep/CMS_COND_PHYSICSTOOLS"),                                    
                    toGet =  cms.VPSet(
                        cms.PSet(record = cms.string("JetCorrectionsRecord"),
-                                tag = cms.string("JetCorrectorParametersCollection_Spring10_V8_AK5Calo"),
+                                tag = cms.string("JetCorrectorParametersCollection_Jec10V3_AK5Calo"),
                                 label=cms.untracked.string("AK5Calo")),
                        cms.PSet(record = cms.string("JetCorrectionsRecord"),
-                                tag = cms.string("JetCorrectorParametersCollection_Spring10_V8_AK5PF"),
+                                tag = cms.string("JetCorrectorParametersCollection_Jec10V3_AK5PF"),
                                 label=cms.untracked.string("AK5PF")),                                   
                        cms.PSet(record = cms.string("JetCorrectionsRecord"),
-                                tag = cms.string("JetCorrectorParametersCollection_Summer10_V8_AK5JPT"),
+                                tag = cms.string("JetCorrectorParametersCollection_Jec10V3_AK5PFchs"),
+                                label=cms.untracked.string("AK5PFchs")),                                   
+                       cms.PSet(record = cms.string("JetCorrectionsRecord"),
+                                tag = cms.string("JetCorrectorParametersCollection_Jec10V3_AK5JPT"),
                                 label=cms.untracked.string("AK5JPT")),
                        cms.PSet(record = cms.string("JetCorrectionsRecord"),
-                                tag = cms.string("JetCorrectorParametersCollection_Spring10_V8_IC5Calo"),
-                                label=cms.untracked.string("IC5Calo")),
-                       cms.PSet(record = cms.string("JetCorrectionsRecord"),
-                                tag = cms.string("JetCorrectorParametersCollection_Spring10_V8_KT6Calo"),
-                                label=cms.untracked.string("KT6Calo")),
-                       cms.PSet(record = cms.string("JetCorrectionsRecord"),
-                                tag = cms.string("JetCorrectorParametersCollection_Spring10_V8_KT4Calo"),
+                                tag = cms.string("JetCorrectorParametersCollection_Jec10V3_KT4Calo"),
                                 label=cms.untracked.string("KT4Calo")),
                        cms.PSet(record = cms.string("JetCorrectionsRecord"),
-                                tag = cms.string("JetCorrectorParametersCollection_Spring10_V8_AK7Calo"),
+                                tag = cms.string("JetCorrectorParametersCollection_Jec10V3_AK7Calo"),
                                 label=cms.untracked.string("AK7Calo")),
                        )
                    
@@ -54,11 +51,11 @@ process.maxEvents = cms.untracked.PSet(
 process.source = cms.Source("EmptySource")
 
 ##-------------------- User analyzer  --------------------------------
-process.ak5calol2l3Residuall5l7  = cms.EDAnalyzer('FactorizedJetCorrectorDemo',
+process.ak5pfchsl2l3Residuall5l7  = cms.EDAnalyzer('FactorizedJetCorrectorDemo',
     levels                   = cms.vstring( 'L2Relative', 'L3Absolute', 'L5Flavor_gJ', 'L7Parton_gJ'),
     UncertaintyTag           = cms.string('Uncertainty'),
     UncertaintyFile          = cms.string(''),
-    PayloadName              = cms.string('AK5Calo'),
+    PayloadName              = cms.string('AK5PFchs'),
     NHistoPoints             = cms.int32(10000),
     NGraphPoints             = cms.int32(500),
     EtaMin                   = cms.double(-5),
@@ -72,5 +69,5 @@ process.ak5calol2l3Residuall5l7  = cms.EDAnalyzer('FactorizedJetCorrectorDemo',
     Debug                    = cms.untracked.bool(True)
 )
 
-process.p = cms.Path(process.ak5calol2l3Residuall5l7)
+process.p = cms.Path(process.ak5pfchsl2l3Residuall5l7)
 
